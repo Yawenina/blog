@@ -1,3 +1,3 @@
 # Blog
 
-BUilding a personal blog with Vue.js + wilddog
+Building a personal blog with Vue.js + wilddog
