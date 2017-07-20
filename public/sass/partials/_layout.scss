@@ -1,0 +1,64 @@
+html {
+  font-size: 10px;
+}
+
+body {
+  font-family: 'Maven Pro', 'Microsoft YaHei', sans-serif;
+  font-size: 14px;
+}
+
+.nav-container {
+  position: fixed;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+  transition: background 0.3s cubic-bezier(0.300, 0.100, 0.580, 1.000), padding 0.3s cubic-bezier(0.300, 0.100, 0.580, 1.000);
+  &.transparent {
+    padding: 1.5rem 0;
+    background: transparent;
+    box-shadow: none;
+    .logo{
+      display: none;
+    }
+    a {
+      color: #fff;
+    }
+  }
+}
+
+.nav {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &__brand img {
+    width: 95px;
+  }
+  &__hamburger {
+    display: none;
+  }
+  &__list {
+    margin: 0;
+    display: flex;
+    li {
+      padding: 2rem 1.5rem;
+      list-style: none;
+      a {
+        color: #111;
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.hero {
+  color: #fff;
+  padding: 15rem 0;
+  background: url('/images/ocean-hero.jpeg') no-repeat;
+  background-position: center center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
