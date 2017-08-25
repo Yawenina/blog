@@ -37,4 +37,10 @@ router.get('/admin*',
   adminRoute,
 );
 
+router.post('/admin*',
+  authController.isLoggedIn,
+  authController.isAdmin,
+  adminRoute,
+);
+
 module.exports = router;

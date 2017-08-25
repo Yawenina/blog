@@ -5,17 +5,16 @@ const path = require('path');
 
 const vue = {
   test: /\.vue$/,
-  use: ['vue-loader'],
+  use: 'vue-loader',
 };
 
 const javascript = {
-  test: /\.js$/,
-  use: [
-    {
-      loader: 'babel-loader',
-      options: { presets: 'es2015' },
-    },
-  ],
+  test: /\.(js)$/, // see how we match anything that ends in `.js`? Cool
+  use: [{
+    loader: 'babel-loader',
+    options: { presets: ['es2015'] }, // this is one way of passing options
+  }],
+  exclude: /node_modules/,
 };
 
 const postcss = {
@@ -33,6 +32,10 @@ const styles = {
   use: ExtractTextPlugin.extract(['css-loader?sourceMap', postcss, 'sass-loader?sourceMap']),
 };
 
+const uglify = new webpack.optimize.UglifyJsPlugin({ // eslint-disable-line
+  compress: { warnings: false }
+});
+
 // basic config
 const config = {
   entry: {
@@ -45,7 +48,7 @@ const config = {
     filename: '[name].bundle.js',
   },
   module: {
-    rules: [vue, javascript, styles],
+    rules: [javascript, vue, styles],
   },
   plugins: [
     new ExtractTextPlugin('[name].css'),
@@ -55,13 +58,9 @@ const config = {
       vue: 'vue/dist/vue.js',
     },
   },
+  stats: {
+    children: false,
+  },
 };
-
-// uglify js
-const uglify = new webpack.optimize.UglifyJsPlugin();
-
-if (process.env.NODE_ENV === 'production') {
-  config.plugins.push(uglify);
-}
 
 module.exports = config;

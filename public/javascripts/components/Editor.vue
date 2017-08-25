@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 import Markdown from './Markdown.vue';
 
 export default {

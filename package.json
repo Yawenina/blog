@@ -12,7 +12,8 @@
   "scripts": {
     "start": "node ./start.js",
     "watch": "nodemon ./start.js --ignore public/",
-    "assets": "webpack --watch --display-max-modules 0",
+    "assets": "webpack -w",
+    "prod": "webpack -p",
     "dev": "concurrently 'npm run watch' 'npm run assets' --names '💻, 📦' --prefix name"
   },
   "dependencies": {
