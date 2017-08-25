@@ -20,12 +20,12 @@ function articleContent() {
   const form = document.forms['articleForm'];
   const children = form.elements;
   const title = children.title.value;
-  let tagIds = document
+  let tags = document
     .querySelector('.article__tags')
     .getAttribute('tags');
-  tagIds = tagIds.trim() === ''
+  tags = tags.trim() === ''
     ? []
-    : tagIds.split(',');
+    : tags.split(',');
   const category = children.category.value;
   const content = children.content.value;
 
@@ -41,7 +41,7 @@ function articleContent() {
 
   return {
     title,
-    tagIds,
+    tags,
     category,
     content,
   };

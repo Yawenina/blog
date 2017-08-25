@@ -20,7 +20,7 @@
     <div class="tags__display">
       <ul class="tags__list">
         <li class="tag__item" v-for="(tag, index) in tags" :key="index">
-          {{tag}}
+          {{tag.name}}
           <span class="tag__remove" @click="removeTag(index)">&times;</span>
         </li>
       </ul>
@@ -52,6 +52,7 @@
 
 <script>
 import debounce from 'lodash/debounce';
+import uniqBy from 'lodash/uniqBy';
 import axios from 'axios';
 import Model from './Model.vue';
 
@@ -117,7 +118,7 @@ export default {
     },
     pushTag(value) {
       this.tags.push(value);
-      this.tags = _.uniqBy(this.tags, 'name');
+      this.tags = uniqBy(this.tags, 'name');
     },
     clearAddTag() {
       this.tagInput = '';

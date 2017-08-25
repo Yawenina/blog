@@ -56,8 +56,8 @@ exports.createArticle = async (req, res) => {
 
   const articleModel = new Article(article);
   const saveArticle = promisify(articleModel.save, articleModel);
-  saveArticle().then((res) => {
-    res.json({ status: 1, text: '发布成功！' });
+  saveArticle().then((data) => {
+    res.json({ status: 1, text: '发布成功！', link: `/article/${data.slug}` });
   });
 };
 
