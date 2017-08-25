@@ -1,0 +1,24 @@
+.notfound {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  &__text {
+    font-size: 10rem;
+    font-weight: bold;
+    color: rgb(74, 135, 101);
+    padding: 3rem;
+  }
+  &__img {
+    width: 25rem;
+    height: 25rem;
+    border-radius: 50%;
+  }
+}
+
+.error-text {
+  text-align: center;
+}
+.error {
+  white-space: pre-line;
+}

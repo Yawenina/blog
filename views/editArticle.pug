@@ -1,0 +1,8 @@
+extends admin
+
+include mixins/_article
+
+block content
+  -const url = `/admin/article/update/${article._id}`
+  +article(article, categories, url)
+    

@@ -1,0 +1,15 @@
+.blog {
+  padding: 2rem;
+}
+
+.article {
+  &__info {
+    text-align: center;
+  }
+  &__created {
+    padding: .5rem 0;
+  }
+  &__content {
+    margin: 2.5rem 0;
+  }
+}

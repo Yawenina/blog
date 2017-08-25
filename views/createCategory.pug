@@ -1,0 +1,11 @@
+extends admin
+
+block content
+  .form-wrapper
+    form.form(action="/admin/category/create" method="POST")
+      h2.title  创建分类
+      label(for="name") 名称
+      input(type="name" id="name" name="name" required)
+      label(for="desc") 描述
+      textarea(name="desc" rows="5")
+      input.btn(type="submit" value="创建分类 →")

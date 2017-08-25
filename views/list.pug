@@ -1,0 +1,18 @@
+extends admin
+
+block content
+  h1.title  文章列表
+  ul.articleList
+    each article, index in articles
+      li.articleList__item
+        a.articleList__link(href=article.slug)
+          span.articleList__idx= index + 1
+          span= article.title
+        .articleList__status
+          span= h.moment(article.created).format('YYYY-MM-DD')
+          a.articleList__edit(href=`/admin/article/edit/${article._id}`) 
+            i.fa.fa-pencil
+            span 编辑
+          a.articleList__delete(href=`/admin/article/delete/${article._id}`)
+            i.fa.fa-trash 
+            span 删除

@@ -1,0 +1,16 @@
+mixin articleList(articles=[]) 
+ ul.articles
+    each article in articles
+      li.list__item
+        a.list__link(href=`/article/${article.slug}`)= article.title
+        div.list__info
+          if !currentPath.startsWith('/tags')
+            ul.list__tags
+              each tag in article.tags
+                li.tag__item
+                  a.tag__link(href=`/tags/${tag}`)
+                    span.tag__name= `#${tag}`             
+          span.list__created= h.moment(article.created).format('YYYY-MM-DD')
+        p.list__desc= `${article.content.slice(0, 200)}...`
+        a.list__more(href=`/article/${article.slug}`) 查看更多
+          span.arrow →

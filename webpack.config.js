@@ -3,6 +3,11 @@ const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 
+const vue = {
+  test: /\.vue$/,
+  use: ['vue-loader'],
+};
+
 const javascript = {
   test: /\.js$/,
   use: [
@@ -24,7 +29,7 @@ const postcss = {
 };
 
 const styles = {
-  test: /\.scss$/,
+  test: /\.(s)*css$/,
   use: ExtractTextPlugin.extract(['css-loader?sourceMap', postcss, 'sass-loader?sourceMap']),
 };
 
@@ -32,6 +37,7 @@ const styles = {
 const config = {
   entry: {
     App: './public/javascripts/app.js',
+    Admin: './public/javascripts/admin.js',
   },
   devtool: 'source-map',
   output: {
@@ -39,11 +45,16 @@ const config = {
     filename: '[name].bundle.js',
   },
   module: {
-    rules: [javascript, styles],
+    rules: [vue, javascript, styles],
   },
   plugins: [
-    new ExtractTextPlugin('style.css'),
+    new ExtractTextPlugin('[name].css'),
   ],
+  resolve: {
+    alias: {
+      vue: 'vue/dist/vue.js',
+    },
+  },
 };
 
 // uglify js

@@ -8,7 +8,11 @@ const userSchema = mongoose.Schema({
     unique: true,
     trim: true,
     lowercase: true,
-    validate: [validator.isEmail, '不合法的邮箱地址'],
+    validate: {
+      isAsync: false,
+      validator: validator.isEmail,
+      message: '不合法的邮箱地址',
+    },
     required: '请输入邮箱',
   },
   isAdmin: {
@@ -19,4 +23,4 @@ const userSchema = mongoose.Schema({
 
 userSchema.plugin(passportLocalMongoose, { usernameField: 'email' });
 
-module.exports = mongoose.model(userSchema);
+module.exports = mongoose.model('User', userSchema);

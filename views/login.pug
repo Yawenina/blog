@@ -1,0 +1,11 @@
+extends layout
+
+block content
+    .form-wrapper
+      form.form(action="/login" method="POST")
+        h2  登录
+        label(for="email") 邮箱
+        input(type="email" id="email" name="email" required)
+        label(for="password") 密码
+        input(type="password" id="password" name="password" required)
+        input.btn(type="submit" value="登录 →")

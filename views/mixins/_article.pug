@@ -1,0 +1,17 @@
+mixin article(article = {}, categories = [])
+  form.article.article--form(name="articleForm" onSubmit="return false;" action=url)
+    .form-control
+      label(for="title") 标题
+      input(type="text" name="title" class="article__title" id="article__title" required value=article.title)
+    .article__info
+      .form-control
+        label(for="tags") 标签
+        Tags-Input(:tag=article.tags)
+      .form-control
+        label(for="category") 分类
+        select(name="category")
+          each category in categories
+            option(value=category._id selected= (String(category._id) === String(article.category) ? true : false))= category.name
+    .article__content
+      Editor(content=article.content)
+  button.btn.btn--publish 发布 →

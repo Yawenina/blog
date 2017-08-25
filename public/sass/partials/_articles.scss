@@ -1,0 +1,49 @@
+.articles {
+  list-style: none;
+  padding: 2.5rem 3rem;
+  min-height: 55vh;
+  .list{
+    &__item {
+      margin-bottom: 3rem;
+    }
+    &__link {
+      display: inline-block;
+      font-size: 2.5rem;
+      text-decoration: none;
+      color: #4fc08d;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    &__created {
+      color: #8c8c8c;
+    }
+    &__info {
+      display: flex;
+      margin: 5px 0 1rem 0;
+    }
+    &__more {
+      color: #4fc08d;
+      text-decoration: none;
+      display: block;
+      margin: 1rem 0;
+    }
+  }
+  
+  .arrow {
+    font-weight: bold;
+    color: #4fc08d;
+    display: inline-block;
+    opacity: 0;
+    transform: translateX(-5px);  
+    transition: all .3s;
+  }
+  
+  .list__more:hover {
+    color: #333;
+    .arrow {
+      opacity: 1;
+      transform: translateX(1.2rem);
+    }
+  }
+}
+

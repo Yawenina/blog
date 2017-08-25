@@ -1,0 +1,7 @@
+extends admin
+
+include mixins/_article
+
+block content
+  .article--create
+    +article({}, categories)

@@ -1,28 +1,38 @@
 doctype html
 html
   head
-    title Yawenina | Blog
-    link(rel="stylesheet", href="/dist/style.css")
+    title Yawenina's Blog
+    link(rel="stylesheet", href="/dist/app.css")
     link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Maven+Pro")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
     meta(name="viewport" content="width=device-width, initial-scale=1")
   body
     header.header
-      .nav-container.transparent
+      .nav-container
         nav.nav
           a.nav__brand(href="/")
-            img.logo(src="/images/site-logo.png", alt="")
-            img.logo--light(src="/images/site-logo-light.png")
+            img.logo--light(src="/images/yawenina.png")
           button.nav__hamburger
             span
             span
             span
           ul.nav__list
-            li: a(href="/blog") 个人博客
+            li: a(href="/") 个人博客
             li: a(href="/demo") 作品展示
             li: a(href="/about") 关于我
-    block hero
-      .hero
-        h2 这对我的人生而言，是无论如何非做不可的事。
-        h3 ——村上春树《我的职业是小说家》
-      
-        
+    main.main
+      block message
+        if locals.flashes
+          .flash-messages
+            -const categories = Object.keys(flashes)
+            each category in categories
+              each message in flashes[category]
+                .flash(class=`flash--${category}`)
+                  p.flash__text!= message
+                  button.flash__remove(onClick="this.parentElement.remove()") &times;
+      .content
+        block content
+    footer.footer
+      p © Yawenina 2017. All rights reserved
+      block script
+        script(src="/dist/app.bundle.js")

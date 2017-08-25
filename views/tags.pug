@@ -1,0 +1,13 @@
+extends layout
+
+include mixins/_articleList
+
+block content
+  .tags-list
+    h1.tittle # 标签
+    ul.tags
+      each tag in tags
+        li.tag__item
+          a.tag__link(href= `/tags/${tag._id}`)
+            span.tag__name= tag._id
+            span.tag__count= tag.count

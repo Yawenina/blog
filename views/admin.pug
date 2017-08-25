@@ -1,0 +1,42 @@
+doctype html
+html
+  head
+    title= `${title} | Yawenina's Blog`
+    link(rel="stylesheet", href="/dist/Admin.css")
+    link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Maven+Pro")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+  body
+    .admin
+      aside.sidebar
+        header
+          a.brand(href="/") Yawenina
+        nav
+          ul.nav
+            li.nav__item(class=(currentPath === '/admin/article/create' ? 'nav__item--active' : ''))
+              a.nav__link(href="/admin/article/create")
+                i.fa.fa-pencil.icon
+                span 发表文章
+            li.nav__item(class=(currentPath.startsWith('/admin/article/edit') ? 'nav__item--active': ''))
+              a.nav__link(href="/admin/article/edit")
+                i.fa.fa-cut.icon
+                span 编辑文章
+            li.nav__item(class=(currentPath === '/admin/category/create' ? 'nav__item--active': ''))
+              a.nav__link(href="/admin/category/create")
+                i.fa.fa-briefcase.icon
+                span 分类管理
+      main.main 
+        header
+        section.content
+          block message
+            if locals.flashes
+              .flash-messages
+                -const categories = Object.keys(flashes)
+                each category in categories
+                  each message in flashes[category]
+                    .flash(class=`flash--${category}`)
+                      p.flash__text!= message
+                      button.flash__remove(onClick="this.parentElement.remove()") &times;
+          block content
+    block scripts
+      script(src="/dist/Admin.bundle.js")

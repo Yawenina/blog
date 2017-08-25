@@ -1,0 +1,42 @@
+form.article {
+  font-size: 1.6rem;
+  padding-left: 2rem;
+}
+
+.form-control {
+  display: flex;
+  align-items: center;
+  margin: 1.5rem 0;
+  // flex: auto;
+  label {
+    width: auto;
+    margin-right: 2rem;
+  }
+  input {
+    width: 80%;
+    border: 1px solid #e6e6e6;
+    padding: .7rem;
+  }
+}
+
+.article__info {
+  display: flex;
+  align-items: center;
+  label {
+    width: auto;
+  }
+  .form-control {
+    flex: auto;
+  }
+}
+
+.article__tags {
+  display: inline-block;
+  width: 80%;
+  border: 1px solid #e6e6e6;
+}
+
+.article__content {
+  border: 1px solid #e7e7e7;
+  min-height: 60vh;
+}

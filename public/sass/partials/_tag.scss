@@ -1,0 +1,50 @@
+.tags-list .tags {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;  
+  .tag__item {
+    margin-right: 2rem;
+  }
+}
+
+.tag-info {
+  padding-left: 2.5rem;
+  .tag__desc {
+    margin-top: 1rem;
+    margin-left: 1rem;
+  }
+  .tag__link {
+    font-size: 3rem;
+    background:linear-gradient(to left, rgba(255, 196, 14, 0.83), #ffd66b);
+  }
+}
+
+.tag {
+  &__item {
+    display: inline-block;
+    margin-right: 1rem;
+  }
+  &__link {
+    background: #FFC40E;
+    color: #303030;
+    display: inline-block;
+    clip-path: polygon(10px 0%, 100% 1%, 100% 100%, 10px 100%, 0% 50%);
+    text-decoration: none;
+  }
+  &__name {
+    display: inline-block;
+    padding: .3em .8em .3em 1em;
+    border-right: 3px solid rgba(0,0,0,0.1);
+  }
+  &__count {
+    display: inline-block;
+    padding: .3em .5em;
+    background:#f7f7f7;
+  }
+}
+
+.articles {
+  .tag__name {
+    padding: 0 .8em 0 1em;
+  }
+}

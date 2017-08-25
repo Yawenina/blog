@@ -1,0 +1,35 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  padding: 0 3rem;
+  a {
+    text-decoration: none;
+    color: #222;
+  }
+  &__text {
+    flex: 3 0 auto;
+    text-align: center;
+    &::before {
+      content: '-';
+      padding-right: 2rem;
+    }
+    &::after {
+      content: '-';
+      padding-left: 2rem;
+    }
+  }
+  &__prev {
+    flex: 0 0 auto;    
+    a::before {
+      content: '←';
+      margin-right: 1rem;   
+    }
+  }
+  &__next {
+    flex: 0 0 auto;    
+    a::after {
+      content: '→';
+      margin-left: 1rem;    
+    }
+  }
+}

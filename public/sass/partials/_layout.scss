@@ -4,14 +4,23 @@ html {
 
 body {
   font-family: 'Maven Pro', 'Microsoft YaHei', sans-serif;
-  font-size: 14px;
+  font-size: 1.6rem;
+  background: #efefef;
+  line-height: 1.5em;
+}
+
+.title {
+  display: inline-block;
+  font-size: 2.5rem;
+  text-decoration: none;
+  color: #4fc08d;
+  font-weight: bold;
+  margin: 10px 0;
 }
 
 .nav-container {
-  position: fixed;
+  z-index: 9999;
   width: 100%;
-  background: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
   transition: background 0.3s cubic-bezier(0.300, 0.100, 0.580, 1.000), padding 0.3s cubic-bezier(0.300, 0.100, 0.580, 1.000);
   &.transparent {
     padding: 1.5rem 0;
@@ -32,6 +41,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 10px;
   &__brand img {
     width: 95px;
   }
@@ -45,20 +55,63 @@ body {
       padding: 2rem 1.5rem;
       list-style: none;
       a {
-        color: #111;
+        color: #fff;
         text-decoration: none;
       }
     }
   }
 }
 
-.hero {
-  color: #fff;
-  padding: 15rem 0;
-  background: url('/images/ocean-hero.jpeg') no-repeat;
-  background-position: center center;
-  background-size: cover;
+.main {
+  margin: -40rem auto 2rem;
+  background: white;
+  position: relative;
+  padding: 3rem;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.15);
+  min-height: 70vh;
+}
+
+// .hero {
+//   padding: 15rem 0;
+//   color: #fff;
+//   background: url('/images/ocean-hero.jpeg') no-repeat;
+//   background-position: center center;
+//   background-size: cover;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+// }
+
+header {
+  height: 500px;
+  position: relative;
+  overflow: hidden;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
+  // align-items: center;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 2vw), 0% 100%);
+  &::before {
+    display: block;
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    background: linear-gradient(45deg, #05b3d6 0%, rgba(5, 179, 214, 0) 70%), linear-gradient(135deg, #0958ec 10%, rgba(9, 88, 236, 0) 80%), linear-gradient(225deg, #d209ec 10%, rgba(210, 9, 236, 0) 80%), linear-gradient(315deg, #05e129 100%, rgba(5, 225, 41, 0) 70%);
+    opacity: 0.6;
+    z-index: 1;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 2vw), 0% 100%);
+  }
+}
+
+footer {
+  text-align: center;
+  padding: 3rem 0;
+}
+
+@media all and (min-width: 992px) {
+  .main {
+    max-width: 900px;
+  }
 }

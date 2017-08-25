@@ -1,0 +1,14 @@
+extends layout
+
+block hero
+block content
+    .form-wrapper
+      form.form(action="/register" method="POST")
+        h2  注册
+        label(for="email") 邮箱
+        input(type="email" id="email" name="email" required)
+        label(for="password") 密码
+        input(type="password" id="password" name="password" required)
+        label(for="confirm-password") 确认密码
+        input(type="password" id="confirm-password" name="confirm-password" required)
+        input.btn(type="submit" value="注册 →")

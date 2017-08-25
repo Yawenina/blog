@@ -1,6 +1,9 @@
 extends layout
 
-block hero
-  h2= status
-  p= message
+block content
+  p.notfound
+    span.notfound__text 4
+    img.notfound__img(src="/images/notfound.jpeg", alt="")
+    span.notfound__text 4
+  p.error-text Oh no!你好像闯入了秘密基地，GPS失去了信号📶...
   pre.error!= stackHighlighted
