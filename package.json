@@ -16,6 +16,9 @@
     "prod": "webpack -p",
     "dev": "concurrently 'npm run watch' 'npm run assets' --names '💻, 📦' --prefix name"
   },
+  "engines": {
+    "node": ">= 7.6.0"
+  },
   "dependencies": {
     "axios": "^0.16.2",
     "body-parser": "^1.17.2",
