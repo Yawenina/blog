@@ -46,14 +46,6 @@ exports.createArticle = async (req, res) => {
   const sign = md5(`${appKey}${title}${salt}${process.env.YOUDAO_SECRET_KEY}`);
   const url = encodeURI(`http://openapi.youdao.com/api?q=${title}&from=zh-CHS&to=EN&appKey=${appKey}&salt=${salt}&sign=${sign}`);
 
-  // 2.2 get translate result
-  // axios.get(url).then(res => {
-  //   article.slug = slug(res.data.translation[0]);
-  //   return new Promise(resolve => resolve());
-  // }).then(() => {
-  //   // 3. save it!
-  // });
-
   const articleModel = new Article(article);
   const saveArticle = promisify(articleModel.save, articleModel);
   saveArticle().then((data) => {

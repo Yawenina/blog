@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const slug = require('slugs');
 
 const Schema = mongoose.Schema;
 const getTitleSlug = require('../helpers').getTitleSlug;
@@ -40,6 +41,7 @@ async function setArticleSlug(next) {
 
   // get the new slug
   this.slug = await getTitleSlug(this.title);
+  this.slug = slug(this.slug);
   // find a slugs that has the title title-1 pattern
   const slugRegEx = new RegExp(`^(${this.slug})(((-/d*)$)?)$`, 'i');
   const articlesWithSlug = await this.constructor.find({ slug: slugRegEx });
