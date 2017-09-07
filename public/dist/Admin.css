@@ -2274,6 +2274,7 @@ form.article {
     padding: 0 20px;
     color: #009a61; }
   .articleList__delete {
+    text-decoration: none;
     color: #FF5F57; }
 
 /*# sourceMappingURL=Admin.css.map*/

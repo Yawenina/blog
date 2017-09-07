@@ -15,11 +15,30 @@ exports.createArticle = async (req, res) => {
   const article = req.body;
 
   const articleModel = new Article(article);
-  
+
   const saveArticle = promisify(articleModel.save, articleModel);
   const newArticle = await saveArticle();
 
-  res.json({ status: 1, text: '发布成功！', link: `/article/${newArticle.slug}` });  
+  res.json({ status: 1, text: '发布成功！', link: `/article/${newArticle.slug}` });
+};
+
+exports.articleList = async (req, res) => {
+  const articles = await Article.find().sort({ created: 'desc' });
+  res.render('admin/articleList', { title: '文章列表', articles });
+};
+
+exports.updateArticle = async (req, res) => {
+  const article = await Article.findOneAndUpdate({ _id: req.params.id }, req.body, {
+    new: true,
+    runValidators: true,
+  }).exec();
+  res.json({ status: 1, text: '更新成功！', link: `/article/${article.slug}` });
+};
+
+exports.deleteArticle = async (req, res) => {
+  await Article.findOneAndRemove({ _id: req.params.id }).exec();
+  req.flash('success', '删除成功');
+  res.redirect('/admin/article/edit');
 };
 
 exports.getArticles = async (req, res) => {

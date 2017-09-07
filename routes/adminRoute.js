@@ -13,11 +13,13 @@ router.post('/admin/article/create', catchErrors(articleController.createArticle
 router.get('/admin/category/create', adminController.categoryForm);
 router.post('/admin/category/create', adminController.createCategory);
 
-router.get('/admin/article/edit', adminController.articleList);
+router.get('/admin/article/edit', articleController.articleList);
 
 router.get('/admin/article/edit/:id', adminController.editArticleForm);
+router.post('/admin/article/update/:id',
+ catchErrors(articleController.updateArticle));
 
-router.post('/admin/article/update/:id', adminController.updateArticle);
-router.get('/admin/article/delete/:id', adminController.deleteArticle);
+router.get('/admin/article/delete/:id',
+  catchErrors(articleController.deleteArticle));
 
 module.exports = router;
