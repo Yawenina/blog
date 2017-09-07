@@ -11,7 +11,7 @@
       <div class="model__footer">
         <slot name="footer">Model footer</slot>
         <button class="model__btn model__btn--cancel" @click="$emit('close')">取消</button>
-        <button class="model__btn model__btn--submit" @click="$emit('addTag')">确认</button>
+        <button class="model__btn model__btn--submit" @click.prevent="$emit('submit')">确认</button>
       </div>
     </div>
   </div>
@@ -82,7 +82,6 @@ export default {
       color: #fff;
     }
   }
-
 }
 </style>
 

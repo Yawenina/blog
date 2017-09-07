@@ -1,8 +1,4 @@
 const mongoose = require('mongoose');
-const axios = require('axios');
-const promisify = require('es6-promisify');
-const md5 = require('md5');
-const slug = require('slugs');
 
 const Category = mongoose.model('Category');
 const Article = mongoose.model('Article');
@@ -13,44 +9,6 @@ const findOrCreate = async (category) => {
 
   await new Category(category).save();
   return 'create';
-};
-
-exports.adminHome = (req, res) => {
-  res.redirect('/admin/article/create');
-};
-
-exports.articleForm = async (req, res) => {
-  const categories = await Category.find();
-  res.render('createArticle', { title: '创建文章', categories });
-};
-
-exports.categoryForm = (req, res) => {
-  res.render('createCategory', { title: '创建分类' });
-};
-
-exports.createArticle = async (req, res) => {
-  // 1. validate user input
-  req.sanitize('title');
-  req.checkBody('title', '标题不能为空').notEmpty();
-
-  req.sanitize('content');
-  req.checkBody('content', '内容不能为空').notEmpty();
-
-  const article = req.body;
-
-  // 2. translate and slug the title
-  // 2.1 translate
-  const title = req.body.title;
-  const appKey = process.env.YOUDAO_APPKEY;
-  const salt = Math.random();
-  const sign = md5(`${appKey}${title}${salt}${process.env.YOUDAO_SECRET_KEY}`);
-  const url = encodeURI(`http://openapi.youdao.com/api?q=${title}&from=zh-CHS&to=EN&appKey=${appKey}&salt=${salt}&sign=${sign}`);
-
-  const articleModel = new Article(article);
-  const saveArticle = promisify(articleModel.save, articleModel);
-  saveArticle().then((data) => {
-    res.json({ status: 1, text: '发布成功！', link: `/article/${data.slug}` });
-  });
 };
 
 exports.createCategory = async (req, res) => {
@@ -82,6 +40,19 @@ exports.createCategory = async (req, res) => {
 exports.articleList = async (req, res) => {
   const articles = await Article.find().sort({ created: 'desc' });
   res.render('list', { title: '文章列表', articles });
+};
+
+exports.adminHome = (req, res) => {
+  res.redirect('/admin/article/create');
+};
+
+exports.articleForm = async (req, res) => {
+  const categories = await Category.find();
+  res.render('admin/createArticle', { title: '创建文章', categories });
+};
+
+exports.categoryForm = (req, res) => {
+  res.render('createCategory', { title: '创建分类' });
 };
 
 exports.editArticleForm = async (req, res) => {

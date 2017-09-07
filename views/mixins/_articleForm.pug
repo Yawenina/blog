@@ -1,4 +1,4 @@
-mixin article(article = {}, categories = [])
+mixin articleForm(article = {}, categories = [])
   form.article.article--form(name="articleForm" onSubmit="return false;" action=url)
     .form-control
       label(for="title") 标题
@@ -14,4 +14,4 @@ mixin article(article = {}, categories = [])
             option(value=category._id selected= (String(category._id) === String(article.category) ? true : false))= category.name
     .article__content
       Editor(content=article.content)
-  button.btn.btn--publish 发布 →
+  button.btn.btn--publish(onSubmit="return false;") 发布 →

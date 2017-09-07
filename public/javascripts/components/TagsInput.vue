@@ -1,6 +1,6 @@
 <template id="tags">
   <div class="article__tags" :tags="tags.map(tag => tag.name)">
-    <Model v-if="showModal" @close="clearAddTag" @addTag="addTag">
+    <Model v-if="showModal" @close="clearAddTag" @submit="addTag">
       <h4 slot="header" class="model__title">创建标签</h4>
       <div slot="body" :class="{'model__input--error': errorMsg}">
         <input type="text" 
@@ -35,7 +35,7 @@
           <ul v-if="searchResults.length">
             <li v-for="(result, index) in searchResults" 
                 v-html="boldSearch(result.name, tagInput)"
-                @click="selectItem(result)"
+                @click="addTagToList(result)"
                 :key="index" 
                 class="result__item"
                 :class="{'result__item--active':resultSelectedIdx === index}">
@@ -109,8 +109,7 @@ export default {
                                   : this.resultSelectedIdx - 1;
       } else if (e.keyCode === 13) {
         if (this.searchResults.length) {
-          this.pushTag(this.searchResults[this.resultSelectedIdx]);
-          this.clearAddTag();
+          this.addTagToList(this.searchResults[this.resultSelectedIdx]);
         } else {
           this.showAddTagModal();
         }
@@ -122,11 +121,15 @@ export default {
     },
     clearAddTag() {
       this.tagInput = '';
-      this.newTag = {};
+      this.newTag = {
+        name: '',
+        description: ''
+      };
+      this.errorMsg = '';
       this.showResults = false;
       this.showModal = false;
     },
-    selectItem(tag) {
+    addTagToList(tag) {
       this.pushTag(tag);
       this.clearAddTag();
     },
@@ -147,12 +150,7 @@ export default {
       axios.post('/addTag', this.newTag)
             .then(res => {
               if (res.data.status === 0) {
-                this.pushTag(this.newTag);
-                this.newTag = {
-                  name: '',
-                  description: ''
-                }
-                this.clearAddTag();
+                this.addTagToList(this.newTag);
               } else {
                 this.errorMsg = res.data.data.name;
               }

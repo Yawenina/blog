@@ -11,7 +11,7 @@ exports.getTitleSlug = function(title) {
   const sign = md5(`${appKey}${title}${salt}${process.env.YOUDAO_SECRET_KEY}`);
   const url = encodeURI(`http://openapi.youdao.com/api?q=${title}&from=zh-CHS&to=EN&appKey=${appKey}&salt=${salt}&sign=${sign}`);
 
-  // 2.2 get translate result
+  // get translate result
   return axios.get(url).then((res) => {
     return res.data.translation[0];
   });

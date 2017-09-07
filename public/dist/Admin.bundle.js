@@ -32440,12 +32440,9 @@ new _vue2.default({
 });
 
 function articleContent() {
-  var form = document.forms['articleForm'];
+  var form = document.forms.articleForm;
   var children = form.elements;
   var title = children.title.value;
-  var tags = document.querySelector('.article__tags').getAttribute('tags');
-  tags = tags.trim() === '' ? [] : tags.split(',');
-  var category = children.category.value;
   var content = children.content.value;
 
   if (!title) {
@@ -32453,10 +32450,14 @@ function articleContent() {
     return false;
   }
 
-  if (!title) {
+  if (!content) {
     (0, _sweetalert2.default)('请输入内容！', '内容不能为空哦🙅‍', 'error');
     return false;
   }
+
+  var tags = document.querySelector('.article__tags').getAttribute('tags');
+  tags = tags.trim() === '' ? [] : tags.split(',');
+  var category = children.category.value;
 
   return {
     title: title,
@@ -32469,7 +32470,10 @@ function articleContent() {
 function postArticle(e) {
   e.preventDefault();
   var article = articleContent();
-  var form = document.forms['articleForm'];
+  if (!article) {
+    return;
+  }
+  var form = document.forms.articleForm;
   _axios2.default.post(form.action, article).then(function (res) {
     if (res.data.status === 1) {
       (0, _sweetalert2.default)(res.data.text, '跳转到文章中...', 'success');
@@ -34266,7 +34270,7 @@ exports = module.exports = __webpack_require__(21)(true);
 
 
 // module
-exports.push([module.i, "\n.editor {\n  display: flex;\n  min-height: 60vh;\n}\n.editor__input {\n  width: 50%;\n  outline: none;\n  resize: none;\n  border: none;\n  border-right: 1px solid #ccc;\n  padding: 2rem;\n}\n.editor__result {\n  width: 50%;\n  padding: 2rem;\n}\n", "", {"version":3,"sources":["/Users/yawenina/Codes/blog/public/javascripts/components/Editor.vue?7b3c3096"],"names":[],"mappings":";AA+BA;EACA,cAAA;EACA,iBAAA;CACA;AACA;EACA,WAAA;EACA,cAAA;EACA,aAAA;EACA,aAAA;EACA,6BAAA;EACA,cAAA;CACA;AACA;EACA,WAAA;EACA,cAAA;CACA","file":"Editor.vue","sourcesContent":["<template id=\"editor\">\n  <div class='editor'>\n    <textarea :value=\"input\" @input=\"update\" class=\"editor__input\" name=\"content\" required></textarea>\n    <Markdown class=\"editor__result\" :input=\"input\"/>\n  </div>\n</template>\n\n<script>\nimport debounce from 'lodash/debounce';\nimport Markdown from './Markdown.vue';\n\nexport default {\n  template: '#editor',\n  components: {\n    Markdown\n  },\n  props: ['content'],\n  data() {\n    return {\n      input: this.content || '',\n    }\n  },\n  methods: {\n    update: debounce(function(e) {\n      this.input = e.target.value;\n    }, 300)\n  }\n}\n</script>\n\n<style>\n  .editor {\n    display: flex;\n    min-height: 60vh;\n  }\n  .editor__input {\n    width: 50%;\n    outline: none;\n    resize: none;\n    border: none;\n    border-right: 1px solid #ccc;\n    padding: 2rem;\n  }\n  .editor__result {\n    width: 50%;\n    padding: 2rem;\n  }\n</style>\n\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.editor {\n  display: flex;\n  min-height: 60vh;\n}\n.editor__input {\n  width: 50%;\n  outline: none;\n  resize: none;\n  border: none;\n  border-right: 1px solid #ccc;\n  padding: 2rem;\n}\n.editor__result {\n  width: 50%;\n  padding: 2rem;\n}\n", "", {"version":3,"sources":["/Users/yawenina/Codes/blog/public/javascripts/components/Editor.vue?4dc90030"],"names":[],"mappings":";AA+BA;EACA,cAAA;EACA,iBAAA;CACA;AACA;EACA,WAAA;EACA,cAAA;EACA,aAAA;EACA,aAAA;EACA,6BAAA;EACA,cAAA;CACA;AACA;EACA,WAAA;EACA,cAAA;CACA","file":"Editor.vue","sourcesContent":["<template id=\"editor\">\n  <div class='editor'>\n    <textarea :value=\"input\" @input=\"update\" class=\"editor__input\" name=\"content\" required></textarea>\n    <Markdown class=\"editor__result\" :input=\"input\" />\n  </div>\n</template>\n\n<script>\nimport debounce from 'lodash/debounce';\nimport Markdown from './Markdown.vue';\n\nexport default {\n  template: '#editor',\n  components: {\n    Markdown\n  },\n  props: ['content'],\n  data() {\n    return {\n      input: this.content || '',\n    }\n  },\n  methods: {\n    update: debounce(function(e) {\n      this.input = e.target.value;\n    }, 300)\n  }\n}\n</script>\n\n<style>\n  .editor {\n    display: flex;\n    min-height: 60vh;\n  }\n  .editor__input {\n    width: 50%;\n    outline: none;\n    resize: none;\n    border: none;\n    border-right: 1px solid #ccc;\n    padding: 2rem;\n  }\n  .editor__result {\n    width: 50%;\n    padding: 2rem;\n  }\n</style>\n\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -34800,8 +34804,7 @@ exports.default = {
         this.resultSelectedIdx = this.resultSelectedIdx <= 0 ? this.searchResults.length - 1 : this.resultSelectedIdx - 1;
       } else if (e.keyCode === 13) {
         if (this.searchResults.length) {
-          this.pushTag(this.searchResults[this.resultSelectedIdx]);
-          this.clearAddTag();
+          this.addTagToList(this.searchResults[this.resultSelectedIdx]);
         } else {
           this.showAddTagModal();
         }
@@ -34813,11 +34816,15 @@ exports.default = {
     },
     clearAddTag: function clearAddTag() {
       this.tagInput = '';
-      this.newTag = {};
+      this.newTag = {
+        name: '',
+        description: ''
+      };
+      this.errorMsg = '';
       this.showResults = false;
       this.showModal = false;
     },
-    selectItem: function selectItem(tag) {
+    addTagToList: function addTagToList(tag) {
       this.pushTag(tag);
       this.clearAddTag();
     },
@@ -34841,12 +34848,7 @@ exports.default = {
       }
       _axios2.default.post('/addTag', this.newTag).then(function (res) {
         if (res.data.status === 0) {
-          _this3.pushTag(_this3.newTag);
-          _this3.newTag = {
-            name: '',
-            description: ''
-          };
-          _this3.clearAddTag();
+          _this3.addTagToList(_this3.newTag);
         } else {
           _this3.errorMsg = res.data.data.name;
         }
@@ -37798,7 +37800,8 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
     staticClass: "model__btn model__btn--submit",
     on: {
       "click": function($event) {
-        _vm.$emit('addTag')
+        $event.preventDefault();
+        _vm.$emit('submit')
       }
     }
   }, [_vm._v("确认")])], 2)])])
@@ -37828,7 +37831,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
   }, [(_vm.showModal) ? _c('Model', {
     on: {
       "close": _vm.clearAddTag,
-      "addTag": _vm.addTag
+      "submit": _vm.addTag
     }
   }, [_c('h4', {
     staticClass: "model__title",
@@ -37938,7 +37941,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
       },
       on: {
         "click": function($event) {
-          _vm.selectItem(result)
+          _vm.addTagToList(result)
         }
       }
     })

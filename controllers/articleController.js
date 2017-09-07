@@ -1,7 +1,26 @@
 const mongoose = require('mongoose');
+const promisify = require('es6-promisify');
 
 const Article = mongoose.model('Article');
 const Tag = mongoose.model('Tag');
+
+exports.createArticle = async (req, res) => {
+  // 1. validate user input
+  req.sanitize('title');
+  req.checkBody('title', '标题不能为空').notEmpty();
+
+  req.sanitize('content');
+  req.checkBody('content', '内容不能为空').notEmpty();
+
+  const article = req.body;
+
+  const articleModel = new Article(article);
+  
+  const saveArticle = promisify(articleModel.save, articleModel);
+  const newArticle = await saveArticle();
+
+  res.json({ status: 1, text: '发布成功！', link: `/article/${newArticle.slug}` });  
+};
 
 exports.getArticles = async (req, res) => {
   const page = req.params.page || 1;

@@ -1,8 +1,8 @@
 extends admin
 
-include mixins/_article
+include ../mixins/_articleForm
 
 block content
   -const url = `/admin/article/update/${article._id}`
-  +article(article, categories, url)
+  +articleForm(article, categories, url)
     

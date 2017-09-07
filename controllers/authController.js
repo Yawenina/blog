@@ -16,7 +16,7 @@ exports.isLoggedIn = (req, res, next) => {
 };
 
 exports.isAdmin = (req, res, next) => {
-  if (req.user.isAdmin !== 1) {
+  if (!req.user.isAdmin) {
     req.flash('error', '没有权限');
     res.redirect('/');
   }

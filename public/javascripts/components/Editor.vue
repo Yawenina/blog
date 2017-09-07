@@ -1,7 +1,7 @@
 <template id="editor">
   <div class='editor'>
     <textarea :value="input" @input="update" class="editor__input" name="content" required></textarea>
-    <Markdown class="editor__result" :input="input"/>
+    <Markdown class="editor__result" :input="input" />
   </div>
 </template>
 

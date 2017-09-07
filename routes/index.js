@@ -36,7 +36,6 @@ router.get('/admin*',
   authController.isAdmin,
   adminRoute,
 );
-
 router.post('/admin*',
   authController.isLoggedIn,
   authController.isAdmin,

@@ -33,7 +33,7 @@ const styles = {
 };
 
 const uglify = new webpack.optimize.UglifyJsPlugin({ // eslint-disable-line
-  compress: { warnings: false }
+  compress: { warnings: false },
 });
 
 // basic config

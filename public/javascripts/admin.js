@@ -17,9 +17,21 @@ new Vue({
 });
 
 function articleContent() {
-  const form = document.forms['articleForm'];
+  const form = document.forms.articleForm;
   const children = form.elements;
   const title = children.title.value;
+  const content = children.content.value;
+
+  if (!title) {
+    swal('请输入标题！', '标题不能为空哦🙅‍', 'error');
+    return false;
+  }
+  
+  if (!content) {
+    swal('请输入内容！', '内容不能为空哦🙅‍', 'error');
+    return false;
+  }
+
   let tags = document
     .querySelector('.article__tags')
     .getAttribute('tags');
@@ -27,17 +39,6 @@ function articleContent() {
     ? []
     : tags.split(',');
   const category = children.category.value;
-  const content = children.content.value;
-
-  if (!title) {
-    swal('请输入标题！', '标题不能为空哦🙅‍', 'error');
-    return false;
-  }
-
-  if (!title) {
-    swal('请输入内容！', '内容不能为空哦🙅‍', 'error');
-    return false;
-  }
 
   return {
     title,
@@ -50,7 +51,10 @@ function articleContent() {
 function postArticle(e) {
   e.preventDefault();
   const article = articleContent();
-  const form = document.forms['articleForm'];
+  if (!article) {
+    return;
+  }
+  const form = document.forms.articleForm;
   axios
     .post(form.action, article)
     .then((res) => {

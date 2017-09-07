@@ -40,14 +40,13 @@ async function setArticleSlug(next) {
   }
 
   // get the new slug
-  this.slug = await getTitleSlug(this.title);
-  this.slug = slug(this.slug);
+  let articleSlug = await getTitleSlug(this.title);
+  articleSlug = slug(articleSlug);
   // find a slugs that has the title title-1 pattern
-  const slugRegEx = new RegExp(`^(${this.slug})(((-/d*)$)?)$`, 'i');
+  const slugRegEx = new RegExp(`^(${articleSlug})(((-/d*)$)?)$`, 'i');
   const articlesWithSlug = await this.constructor.find({ slug: slugRegEx });
-  if (articlesWithSlug.length) {
-    this.slug = `${this.slug}-${articlesWithSlug.length + 1}`;
-  }
+
+  this.slug = articlesWithSlug.length ? `${articleSlug}-${articlesWithSlug.length + 1}` : articleSlug;
   next();
 }
 
