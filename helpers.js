@@ -17,14 +17,6 @@ exports.getTitleSlug = function(title) {
   });
 };
 
-// const findOrCreate = async (category) => {
-//   const result = await Category.findOneAndUpdate({ name: category.name }, category);
-//   if (result) return 'updated';
-
-//   await new Category(category).save();
-//   return 'create';
-// };
-
 exports.findOrCreate = async function(query, model, update) {
   const result = await model.findOneAndUpdate(query, update);
 

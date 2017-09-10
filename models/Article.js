@@ -27,11 +27,6 @@ const articleShema = new Schema({
   },
 });
 
-function autopopulate(next) {
-  this.populate({ path: 'tagIds' });
-  next();
-}
-
 async function setArticleSlug(next) {
   if (!this.isModified('title')) {
     // if title doesn't modified, skip it!
@@ -50,11 +45,10 @@ async function setArticleSlug(next) {
   next();
 }
 
-// articleShema.virtual('tags', {
-//   ref: 'Tag',
-//   localField: 'tags',
-//   foreignField: 'name',
-// });
+function autopopulate(next) {
+  this.populate({ path: 'tagIds' });
+  next();
+}
 
 articleShema.statics.getTagsList = function() {
   return this.aggregate([
@@ -65,7 +59,6 @@ articleShema.statics.getTagsList = function() {
 };
 
 articleShema.pre('save', setArticleSlug);
-
 articleShema.pre('find', autopopulate);
 articleShema.pre('findOne', autopopulate);
 

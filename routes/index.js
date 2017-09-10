@@ -6,14 +6,14 @@ const tagController = require('../controllers/tagController');
 const { catchErrors } = require('../handlers/errorHandlers');
 
 const router = express.Router();
-const adminRoute = require('./adminRoute');
+const adminRoutes = require('./adminRoutes');
 
 // blog
-router.get('/', articleController.getArticles);
-router.get('/blog/page/:page', articleController.getArticles);
-router.get('/article/:slug', articleController.getArticleBySlug);
-router.get('/tags', tagController.getTags);
-router.get('/tags/:tag', articleController.getArticleByTag);
+router.get('/', catchErrors(articleController.getArticles));
+router.get('/blog/page/:page', catchErrors(articleController.getArticles));
+router.get('/article/:slug', catchErrors(articleController.getArticleBySlug));
+router.get('/tags', catchErrors(tagController.getTags));
+router.get('/tags/:tag', catchErrors(tagController.getArticleByTag));
 
 // register
 router.get('/register', userController.registerForm);
@@ -34,12 +34,12 @@ router.post('/addTag', catchErrors(tagController.addTag));
 router.get('/admin*',
   authController.isLoggedIn,
   authController.isAdmin,
-  adminRoute,
+  adminRoutes,
 );
 router.post('/admin*',
   authController.isLoggedIn,
   authController.isAdmin,
-  adminRoute,
+  adminRoutes,
 );
 
 module.exports = router;

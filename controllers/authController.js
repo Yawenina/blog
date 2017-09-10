@@ -20,6 +20,6 @@ exports.isAdmin = (req, res, next) => {
     req.flash('error', '没有权限');
     res.redirect('/');
   }
-  
+
   return next();
 };

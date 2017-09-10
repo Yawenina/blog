@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const promisify = require('es6-promisify');
 
 const Article = mongoose.model('Article');
-const Tag = mongoose.model('Tag');
 
 exports.createArticle = async (req, res) => {
   // 1. validate user input
@@ -62,18 +61,11 @@ exports.getArticles = async (req, res) => {
     return res.redirect(`/blog/page/${page}`);
   }
 
-  res.render('articleList', { articles, page, pages });
+  res.render('blog/articleList', { articles, page, pages });
 };
 
 exports.getArticleBySlug = async (req, res, next) => {
   const article = await Article.findOne({ slug: req.params.slug });
   if (!article) return next();
-  res.render('article', { article });
-};
-
-exports.getArticleByTag = async (req, res) => {
-  const tag = await Tag
-    .findOne({ name: req.params.tag })
-    .populate('articles');
-  res.render('tagItem', { tag });
+  res.render('blog/article', { article });
 };

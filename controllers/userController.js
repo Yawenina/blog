@@ -5,7 +5,7 @@ const promisify = require('es6-promisify');
 
 exports.registerForm = (req, res) => {
   res.render('register', { title: '注册' });
-}
+};
 
 exports.validateRegister = (req, res, next) => {
   req.checkBody('email', '邮箱不正确').notEmpty().isEmail();

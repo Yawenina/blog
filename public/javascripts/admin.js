@@ -26,7 +26,7 @@ function articleContent() {
     swal('请输入标题！', '标题不能为空哦🙅‍', 'error');
     return false;
   }
-  
+
   if (!content) {
     swal('请输入内容！', '内容不能为空哦🙅‍', 'error');
     return false;

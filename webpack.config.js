@@ -2,6 +2,12 @@ const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
+const glob = require('glob-all');
+const PurifyCSSPlugin = require('purifycss-webpack');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+
+const inProduction = process.env.NODE_ENV === 'production';
 
 const vue = {
   test: /\.vue$/,
@@ -32,10 +38,6 @@ const styles = {
   use: ExtractTextPlugin.extract(['css-loader?sourceMap', postcss, 'sass-loader?sourceMap']),
 };
 
-const uglify = new webpack.optimize.UglifyJsPlugin({ // eslint-disable-line
-  compress: { warnings: false },
-});
-
 // basic config
 const config = {
   entry: {
@@ -52,15 +54,42 @@ const config = {
   },
   plugins: [
     new ExtractTextPlugin('[name].css'),
+    new PurifyCSSPlugin({
+      paths: glob.sync([
+        path.join(__dirname, 'views/blog/*.pug'),
+        path.join(__dirname, 'views/admin/*.pug'),
+        path.join(__dirname, 'views/mixins/*.pug'),
+        path.join(__dirname, 'views/*.pug'),
+      ]),
+      minimize: inProduction,
+      purifyOptions: {
+        whitelist: ['*markdown*', '*js*'],
+      },
+    }),
+    // moment config
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment\/locale$/),
+    new webpack.ContextReplacementPlugin(
+      /moment[\/\\]locale$/,
+      /zh-cn/),
   ],
   resolve: {
     alias: {
-      vue: 'vue/dist/vue.js',
+      vue: 'vue/dist/vue.common.js',
     },
   },
   stats: {
     children: false,
   },
 };
+
+if (inProduction) {
+  config.plugins.push(new BundleAnalyzerPlugin());
+  // config.plugins.push(new UglifyJSPlugin({ sourceMap: true }));
+  config.plugins.push(new webpack.DefinePlugin({
+    'process.env': {
+      NODE_ENV: JSON.stringify('production'),
+    },
+  }));
+}
 
 module.exports = config;

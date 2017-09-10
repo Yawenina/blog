@@ -1,3 +1,5 @@
+// config local passport
+
 const passport = require('passport');
 const User = require('../models/User');
 
