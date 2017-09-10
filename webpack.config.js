@@ -4,8 +4,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 const glob = require('glob-all');
 const PurifyCSSPlugin = require('purifycss-webpack');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-// const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const inProduction = process.env.NODE_ENV === 'production';
 
@@ -15,10 +14,10 @@ const vue = {
 };
 
 const javascript = {
-  test: /\.(js)$/, // see how we match anything that ends in `.js`? Cool
+  test: /\.(js)$/,
   use: [{
     loader: 'babel-loader',
-    options: { presets: ['es2015'] }, // this is one way of passing options
+    options: { presets: ['es2015'] },
   }],
   exclude: /node_modules/,
 };
@@ -53,6 +52,7 @@ const config = {
     rules: [javascript, vue, styles],
   },
   plugins: [
+    // process css
     new ExtractTextPlugin('[name].css'),
     new PurifyCSSPlugin({
       paths: glob.sync([
@@ -71,6 +71,8 @@ const config = {
     new webpack.ContextReplacementPlugin(
       /moment[\/\\]locale$/,
       /zh-cn/),
+    // analysis bundler
+    // new BundleAnalyzerPlugin(),
   ],
   resolve: {
     alias: {
@@ -83,8 +85,6 @@ const config = {
 };
 
 if (inProduction) {
-  config.plugins.push(new BundleAnalyzerPlugin());
-  // config.plugins.push(new UglifyJSPlugin({ sourceMap: true }));
   config.plugins.push(new webpack.DefinePlugin({
     'process.env': {
       NODE_ENV: JSON.stringify('production'),

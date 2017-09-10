@@ -13,8 +13,9 @@
     "start": "node ./start.js",
     "watch": "nodemon ./start.js --ignore public/",
     "assets": "webpack -w",
-    "build": "NODE_ENV=production webpack -p",
-    "dev": "concurrently 'npm run watch' 'npm run assets' --names '💻, 📦' --prefix name"
+    "prod": "webpack -p",
+    "dev": "concurrently 'npm run watch' 'npm run assets' --names '💻, 📦' --prefix name",
+    "publish": "now --public"
   },
   "engines": {
     "node": ">= 7.6.0"
