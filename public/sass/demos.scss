@@ -1,0 +1,23 @@
+.demos {
+  padding: 2rem;
+}
+.demo {
+  &__item {
+    margin-bottom: 3rem;
+  }
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+  &__title {
+    color: #4fc08d;
+  }
+  &__link {
+    color: #222;
+  }
+  &__body {
+    display: flex;
+    list-style: none;
+  }
+}

@@ -1,0 +1,12 @@
+extend layout
+block content
+  .demos
+    each demo in demos  
+      .demo__item
+          .demo__header
+            h2.demo__title= demo.title 
+            a(href=demo.link class="demo__link")= demo.link
+          ul.demo__body
+            each img in demo.imgs
+              li
+                img.demo__img(src=img)
