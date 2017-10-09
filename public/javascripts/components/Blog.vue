@@ -12,11 +12,17 @@
         </a>
       </li>
     </div>
+    <div class="social-share" 
+         v-bind:data-title="article.title"
+         v-bind:data-description="`${article.content.slice(0, 80)}...`"></div>
   </div>
 </template>
 
 <script>
 import moment from 'moment';
+import 'social-share.js/dist/css/share.min.css';
+import share from 'social-share.js/dist/js/social-share.min.js';
+
 import Markdown from './Markdown.vue';
 
 moment.locale('zh-cn');

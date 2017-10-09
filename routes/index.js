@@ -35,22 +35,17 @@ const demos = [
   {
     title: '仿豆瓣网站',
     link: 'https://github.com/Yawenina/vue2-douban-city',
-    imgs: ['images/douban/1.png', 'images/douban/2.png', 'images/douban/3.png', 'images/douban/4.png'], 
+    imgs: ['/images/douban/1.PNG', '/images/douban/2.PNG', '/images/douban/3.PNG', '/images/douban/4.PNG'],
   },
   {
     title: 'Github 应用',
     link: 'https://github.com/Yawenina/react-github-explorer',
-    imgs: ['images/github/1.png', 'images/github/2.png', 'images/github/3.png', 'images/douban/4.png'],
+    imgs: ['/images/github/1.PNG', '/images/github/2.PNG', '/images/github/3.PNG', '/images/github/4.PNG'],
   },
 ];
 
 router.get('/demos', (req, res) => {
   res.render('demos', { demos });
-});
-
-// about
-router.get('/about', (req, res) => {
-  res.render('about');
 });
 
 // admin

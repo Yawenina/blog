@@ -1,0 +1,16 @@
+.markdown.markdown-body {
+  blockquote {
+    border-left: 4px solid #009a61;
+    background: #f6f6f6;
+    padding: 10px 20px;
+    margin: 20px auto;
+  }
+  code {
+    color: #c7254e;
+    background-color: #f9f2f4;
+    padding: 2px 4px;
+  }
+  pre code {
+    background-color: transparent;
+  }
+}

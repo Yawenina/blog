@@ -49,23 +49,28 @@ const config = {
     filename: '[name].bundle.js',
   },
   module: {
-    rules: [javascript, vue, styles],
+    rules: [
+      javascript,
+      vue,
+      styles,
+      { test: /\.(eot|woff|ttf|svg)$/, loader: 'file-loader' },
+    ],
   },
   plugins: [
     // process css
     new ExtractTextPlugin('[name].css'),
-    new PurifyCSSPlugin({
-      paths: glob.sync([
-        path.join(__dirname, 'views/blog/*.pug'),
-        path.join(__dirname, 'views/admin/*.pug'),
-        path.join(__dirname, 'views/mixins/*.pug'),
-        path.join(__dirname, 'views/*.pug'),
-      ]),
-      minimize: inProduction,
-      purifyOptions: {
-        whitelist: ['*markdown*', '*js*'],
-      },
-    }),
+    // new PurifyCSSPlugin({
+    //   paths: glob.sync([
+    //     path.join(__dirname, 'views/blog/*.pug'),
+    //     path.join(__dirname, 'views/admin/*.pug'),
+    //     path.join(__dirname, 'views/mixins/*.pug'),
+    //     path.join(__dirname, 'views/*.pug'),
+    //   ]),
+    //   minimize: inProduction,
+    //   purifyOptions: {
+    //     whitelist: ['*markdown*', '*js*', '*sweet*', '*social*'],
+    //   },
+    // }),
     // moment config
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment\/locale$/),
     new webpack.ContextReplacementPlugin(

@@ -63,7 +63,7 @@ body {
 }
 
 .main {
-  margin: -40rem auto 2rem;
+  margin: -26em auto 2rem;
   background: white;
   position: relative;
   padding: 3rem;
@@ -113,5 +113,8 @@ footer {
 @media all and (min-width: 992px) {
   .main {
     max-width: 900px;
+  }
+  .social-share {
+    padding: 0;
   }
 }
