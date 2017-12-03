@@ -19,8 +19,8 @@ router.get('/tags/:tag', catchErrors(tagController.getArticleByTag));
 router.get('/register', userController.registerForm);
 router.post('/register',
   userController.validateRegister,
-  userController.register,
-);
+  userController.register
+)
 
 // login
 router.get('/login', userController.loginForm);
@@ -52,12 +52,12 @@ router.get('/demos', (req, res) => {
 router.get('/admin*',
   authController.isLoggedIn,
   authController.isAdmin,
-  adminRoutes,
-);
+  adminRoutes
+)
 router.post('/admin*',
   authController.isLoggedIn,
   authController.isAdmin,
-  adminRoutes,
-);
+  adminRoutes
+)
 
 module.exports = router;
