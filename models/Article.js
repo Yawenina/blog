@@ -4,7 +4,7 @@ const slug = require('slugs');
 const Schema = mongoose.Schema;
 const getTitleSlug = require('../helpers').getTitleSlug;
 
-const articleShema = new Schema({
+const articleSchema = new Schema({
   created: {
     type: Date,
     default: Date.now,
@@ -50,7 +50,7 @@ function autopopulate(next) {
   next();
 }
 
-articleShema.statics.getTagsList = function() {
+articleSchema.statics.getTagsList = function() {
   return this.aggregate([
     { $unwind: '$tags' },
     { $group: { _id: '$tags', count: { $sum: 1 } } },
@@ -58,8 +58,8 @@ articleShema.statics.getTagsList = function() {
   ]);
 };
 
-articleShema.pre('save', setArticleSlug);
-articleShema.pre('find', autopopulate);
-articleShema.pre('findOne', autopopulate);
+articleSchema.pre('save', setArticleSlug);
+articleSchema.pre('find', autopopulate);
+articleSchema.pre('findOne', autopopulate);
 
-module.exports = mongoose.model('Article', articleShema);
+module.exports = mongoose.model('Article', articleSchema);

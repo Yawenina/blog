@@ -118,3 +118,25 @@ footer {
     padding: 0;
   }
 }
+
+@media all and (max-width: 768px) {
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  header {
+    height: 84px;
+  }
+  .main {
+    margin: -8px 0 15px;
+    padding: 0;
+    flex: 1;
+  }
+  .nav {
+    width: 100%;
+  }
+  footer {
+    padding: 0 0 15px;
+  }
+}

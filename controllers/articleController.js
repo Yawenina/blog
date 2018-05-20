@@ -12,7 +12,6 @@ exports.createArticle = async (req, res) => {
   req.checkBody('content', '内容不能为空').notEmpty();
 
   const article = req.body;
-
   const articleModel = new Article(article);
 
   const saveArticle = promisify(articleModel.save, articleModel);

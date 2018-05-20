@@ -5,7 +5,7 @@
   "repository": "https://github.com/Yawenina/blog.git",
   "author": "Yawenina <xiaoywkate@163.com>",
   "license": "MIT",
-  "browserlist": "last 3 versions",
+  "browserslist": "last 3 versions",
   "now": {
     "dotenv": "variables.env.now"
   },
