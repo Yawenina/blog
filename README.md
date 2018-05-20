@@ -1,6 +1,6 @@
 # Blog
 
-Link: https://yawenina.now.sh/
+Link: https://yawenina.com/
 
 Building a personal blog with express & mongodb & vue
 
